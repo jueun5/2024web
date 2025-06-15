@@ -1,0 +1,82 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    font-family: sans-serif;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  #output {
+    width: 80%;
+    max-width: 500px;
+    font-size: 24px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .language-label {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .keyboard {
+    margin-top: 10px;
+  }
+  
+  .row {
+    margin-bottom: 8px;
+  }
+  
+  .row0 button {
+    background-color: #ccc;
+  }
+  
+  .row1 button {
+    background-color: #f9c74f;
+  }
+  
+  .row2 button {
+    background-color: #90be6d;
+  }
+  
+  .row3 button {
+    background-color: #f8961e;
+  }
+  
+  .row4 button {
+    background-color: #577590;
+  }
+  
+  /* 공통 버튼 스타일 */
+  button {
+    padding: 10px 15px;
+    margin: 3px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    transition: background 0.2s;
+  }
+  
+  /* 버튼 호버 효과 */
+  button:hover {
+    opacity: 0.85;
+  }
+  
+  /* 버튼 눌렀을 때 어두워지는 효과 */
+  button.active {
+    filter: brightness(70%);
+  }
+  
+  /* 전환된 자판 숨기기 */
+  .hidden {
+    display: none;
+  }
+  
