@@ -1,0 +1,19 @@
+const buttons = document.querySelectorAll("button");
+const output = document.getElementById("output");
+
+// 마우스로 버튼 클릭 시 처리
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    output.value += button.textContent;
+  });
+});
+
+// 실제 컴퓨터 키보드 입력 시 처리
+document.addEventListener("keydown", (event) => {
+  const key = event.key;
+
+  // 알파벳, 숫자, 기호 등 일반 키만 처리
+  if (/^[a-zA-Z0-9,./;]$/.test(key)) {
+    output.value += key.toUpperCase();  // 대문자로 입력되도록
+  }
+});
