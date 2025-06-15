@@ -1,0 +1,119 @@
+// 가상 키보드 스크립트 - 완성형 한글 입력 구현
+const output = document.getElementById("output");
+const langLabel = document.getElementById("langLabel");
+const buttons = document.querySelectorAll(".key");
+const enRows = document.querySelectorAll(".en-row");
+const koRows = document.querySelectorAll(".ko-row");
+
+let isKorean = false;
+let hangulBuffer = []; // 한글 조합을 위한 버퍼
+
+// 초성, 중성, 종성 리스트
+const CHO = "ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
+const JUNG = "ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ";
+const JONG = ["", "ㄱ","ㄲ","ㄳ","ㄴ","ㄵ","ㄶ","ㄷ","ㄹ","ㄺ","ㄻ","ㄼ","ㄽ","ㄾ","ㄿ","ㅀ","ㅁ","ㅂ","ㅄ","ㅅ","ㅆ","ㅇ","ㅈ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+
+// 키보드 클릭 이벤트 처리
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    const value = button.textContent;
+    if (button.classList.contains("lang-toggle") || value === ".") {
+      toggleLanguage();
+      return;
+    }
+    handleInput(value);
+    activateEffect(button);
+  });
+});
+
+// 키보드 입력 이벤트
+document.addEventListener("keydown", (e) => {
+  const key = e.key;
+  if (key === ".") {
+    toggleLanguage();
+    return;
+  }
+
+  if (/^[a-zA-Z0-9,./;]$/.test(key)) {
+    handleInput(key.toUpperCase());
+    buttons.forEach(button => {
+      if (button.textContent === key.toUpperCase()) activateEffect(button);
+    });
+  }
+});
+
+function toggleLanguage() {
+  isKorean = !isKorean;
+  langLabel.textContent = isKorean ? "현재 입력: 한글" : "현재 입력: 영어";
+  enRows.forEach(row => row.classList.toggle("hidden", isKorean));
+  koRows.forEach(row => row.classList.toggle("hidden", !isKorean));
+  hangulBuffer = [];
+}
+
+function activateEffect(button) {
+  button.classList.add("active");
+  setTimeout(() => button.classList.remove("active"), 100);
+}
+
+function handleInput(char) {
+  if (!isKorean) {
+    flushHangulBuffer();
+    output.value += char;
+    return;
+  }
+
+  const converted = convertToKorean(char);
+  if (!converted) return;
+
+  hangulBuffer.push(converted);
+  const composed = composeHangul(hangulBuffer);
+  if (composed.complete) {
+    output.value = output.value.slice(0, -1) + composed.char;
+    hangulBuffer = composed.buffer;
+  } else {
+    output.value += composed.char;
+  }
+}
+
+function flushHangulBuffer() {
+  if (hangulBuffer.length > 0) {
+    const composed = composeHangul(hangulBuffer);
+    output.value += composed.char;
+    hangulBuffer = [];
+  }
+}
+
+function convertToKorean(char) {
+  const map = {
+    Q: 'ㅂ', W: 'ㅈ', E: 'ㄷ', R: 'ㄱ', T: 'ㅅ',
+    Y: 'ㅛ', U: 'ㅕ', I: 'ㅑ', O: 'ㅐ', P: 'ㅔ',
+    A: 'ㅁ', S: 'ㄴ', D: 'ㅇ', F: 'ㄹ', G: 'ㅎ',
+    H: 'ㅗ', J: 'ㅓ', K: 'ㅏ', L: 'ㅣ', Z: 'ㅋ',
+    X: 'ㅌ', C: 'ㅊ', V: 'ㅍ', B: 'ㅠ', N: 'ㅜ', M: 'ㅡ'
+  };
+  return map[char.toUpperCase()] || '';
+}
+
+function composeHangul(buffer) {
+  let cho = -1, jung = -1, jong = 0;
+  for (let i = 0; i < buffer.length; i++) {
+    const c = buffer[i];
+    if (CHO.includes(c) && cho === -1) cho = CHO.indexOf(c);
+    else if (JUNG.includes(c) && jung === -1) jung = JUNG.indexOf(c);
+    else if (CHO.includes(c) && cho !== -1 && jung !== -1 && jong === 0) {
+      jong = JONG.indexOf(c);
+    } else {
+      return { char: buildHangul(cho, jung, jong), buffer: buffer.slice(i), complete: true };
+    }
+  }
+  if (cho !== -1 && jung !== -1) {
+    return { char: buildHangul(cho, jung, jong), buffer: [], complete: true };
+  } else {
+    return { char: buffer.join(''), buffer: [], complete: false };
+  }
+}
+
+function buildHangul(cho, jung, jong) {
+  const base = 0xAC00;
+  return String.fromCharCode(base + cho * 21 * 28 + jung * 28 + jong);
+}
