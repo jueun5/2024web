@@ -1,0 +1,90 @@
+const display = document.querySelector('.display');
+const buttons = document.querySelectorAll('.button');
+
+let currentInput = '';
+let operator = '';
+let firstOperand = '';
+let shouldResetDisplay = false;
+
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        const value = button.textContent;
+
+        if (button.classList.contains('num')) {
+            handleNumber(value);
+        } else if (button.classList.contains('plus') ||
+                   button.classList.contains('minus') ||
+                   button.classList.contains('multiplication') ||
+                   button.classList.contains('division')) {
+            handleOperator(value);
+        } else if (value === '=') {
+            calculateResult();
+        } else if (value === 'A/C') {
+            clearAll();
+        }
+    });
+});
+
+function handleNumber(value) {
+    if (shouldResetDisplay) {
+        display.textContent = '';
+        shouldResetDisplay = false;
+    }
+
+    if (display.textContent === '0') {
+        display.textContent = value;
+    } else {
+        display.textContent += value;
+    }
+    currentInput = display.textContent;
+}
+
+function handleOperator(op) {
+    firstOperand = display.textContent;
+    operator = op;
+    shouldResetDisplay = true;
+}
+
+function calculateResult() {
+    let secondOperand = display.textContent;
+    let result;
+
+    const a = parseFloat(firstOperand);
+    const b = parseFloat(secondOperand);
+
+    switch (operator) {
+        case '+':
+            result = a + b;
+            break;
+        case '-':
+        case '-':
+            result = a - b;
+            break;
+        case 'x':
+        case 'x':
+            result = a * b;
+            break;
+        case '÷':
+        case '/':
+            result = b !== 0 ? a / b : 'Error';
+            break;
+        default:
+            result = b;
+    }
+
+    display.textContent = result;
+    currentInput = result;
+    operator = '';
+    shouldResetDisplay = true;
+}
+
+function clearAll() {
+    currentInput = '';
+    firstOperand = '';
+    operator = '';
+    shouldResetDisplay = false;
+    display.textContent = '0';
+}
+
+
+
