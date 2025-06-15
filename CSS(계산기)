@@ -1,0 +1,102 @@
+/* 기본 초기화 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 구글 폰트 적용 */
+body {
+    font-family: 'Jua', sans-serif;
+}
+
+/* 전체 레이아웃 */
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 계산기 전체 */
+.calculator {
+    display: flex;
+    border: 2px solid #465767;
+    background-color: #EBF0F4;
+    box-shadow: 5px 5px 20px #465767;
+    width: 320px;
+    height: 480px;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* 디스플레이 */
+.display {
+    display: flex;
+    border: 2px solid #465767;
+    background-color: #b3b3b3;
+    box-shadow: 1px 1px 5px #465767 inset;
+    height: 60px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 2rem;
+    color: #27313a;
+}
+
+/* 버튼 컨트롤러 */
+.controller {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+/* 버튼 줄 (한 줄씩) */
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 공통 버튼 스타일 */
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px; 
+    height: 60px;
+    font-size: 1.2rem;
+    color: #465767;
+    box-shadow: 0px 3px 0px #465767;
+    border: 2px solid #465767;
+}
+
+/* 숫자 버튼 - 동그라미 */
+.num {
+    background-color: #D6D6D8;
+    border-radius: 50%;
+}
+
+/* 사칙연산 버튼 - 네모 */
+.plus,
+.minus,
+.multiplication,
+.division {
+    background-color: #D6D6D8;
+    border-radius: 10px;
+}
+
+/* 기타 버튼 - 오벌 */
+.function {
+    background-color: #D6D6D8;
+    border-radius: 30px / 20px;
+    width: 70px;
+    height: 45px;
+}
+
+
