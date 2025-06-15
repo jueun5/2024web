@@ -1,0 +1,27 @@
+const display = document.getElementById('display');
+let phoneNumber = '';
+
+function formatPhoneNumber(number) {
+  const digits = number.replace(/\D/g, '');
+
+  if (digits.length <= 3) {
+    return digits;
+  } else if (digits.length <= 7) {
+    return digits.replace(/(\d{3})(\d+)/, '$1-$2');
+  } else if (digits.length <= 11) {
+    return digits.replace(/(\d{3})(\d{4})(\d+)/, '$1-$2-$3');
+  } else {
+    return digits.slice(0, 11).replace(/(\d{3})(\d{4})(\d+)/, '$1-$2-$3');
+  }
+}
+
+document.querySelectorAll('.key').forEach(key => {
+  key.addEventListener('click', () => {
+    const value = key.textContent;
+
+    if (/[\d*#]/.test(value)) {
+      phoneNumber += value;
+      display.textContent = formatPhoneNumber(phoneNumber);
+    }
+  });
+});
