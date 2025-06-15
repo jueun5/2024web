@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>가상 키보드</title>
+  <link rel="stylesheet" href="test_키보드2_디자인.css">
+</head>
+<body>
+
+<div class="container">
+  <input type="text" id="output" placeholder="여기에 입력됩니다" readonly />
+
+  <div class="language-label" id="langLabel">현재 입력: 영어</div>
+
+  <div class="keyboard">
+    <!-- 전환 버튼 -->
+    <div class="row row0">
+      <button class="key lang-toggle">한/영</button>
+      <button class="key dot">.</button>
+    </div>
+
+    <!-- 영어 키보드 -->
+    <div class="row row1 en-row">
+      <button class="key">1</button><button class="key">2</button><button class="key">3</button><button class="key">4</button>
+      <button class="key">5</button><button class="key">6</button><button class="key">7</button><button class="key">8</button>
+      <button class="key">9</button><button class="key">0</button>
+    </div>
+    <div class="row row2 en-row">
+      <button class="key">Q</button><button class="key">W</button><button class="key">E</button><button class="key">R</button>
+      <button class="key">T</button><button class="key">Y</button><button class="key">U</button><button class="key">I</button>
+      <button class="key">O</button><button class="key">P</button>
+    </div>
+    <div class="row row3 en-row">
+      <button class="key">A</button><button class="key">S</button><button class="key">D</button><button class="key">F</button>
+      <button class="key">G</button><button class="key">H</button><button class="key">J</button><button class="key">K</button>
+      <button class="key">L</button><button class="key">;</button>
+    </div>
+    <div class="row row4 en-row">
+      <button class="key">Z</button><button class="key">X</button><button class="key">C</button><button class="key">V</button>
+      <button class="key">B</button><button class="key">N</button><button class="key">M</button><button class="key">,</button>
+      <button class="key">.</button><button class="key">/</button>
+    </div>
+
+    <!-- 한글 키보드 -->
+    <div class="row row1 ko-row hidden">
+      <button class="key">1</button><button class="key">2</button><button class="key">3</button><button class="key">4</button>
+      <button class="key">5</button><button class="key">6</button><button class="key">7</button><button class="key">8</button>
+      <button class="key">9</button><button class="key">0</button>
+    </div>
+    <div class="row row2 ko-row hidden">
+      <button class="key">ㅂ</button><button class="key">ㅈ</button><button class="key">ㄷ</button><button class="key">ㄱ</button>
+      <button class="key">ㅅ</button><button class="key">ㅛ</button><button class="key">ㅕ</button><button class="key">ㅑ</button>
+      <button class="key">ㅐ</button><button class="key">ㅔ</button>
+    </div>
+    <div class="row row3 ko-row hidden">
+      <button class="key">ㅁ</button><button class="key">ㄴ</button><button class="key">ㅇ</button><button class="key">ㄹ</button>
+      <button class="key">ㅎ</button><button class="key">ㅗ</button><button class="key">ㅓ</button><button class="key">ㅏ</button>
+      <button class="key">ㅣ</button><button class="key">;</button>
+    </div>
+    <div class="row row4 ko-row hidden">
+      <button class="key">ㅋ</button><button class="key">ㅌ</button><button class="key">ㅊ</button><button class="key">ㅍ</button>
+      <button class="key">ㅠ</button><button class="key">ㅜ</button><button class="key">ㅡ</button><button class="key">,</button>
+      <button class="key">.</button><button class="key">/</button>
+    </div>
+  </div>
+</div>
+
+<script src="test_키보드2_코딩.js"></script>
+</body>
+</html>
